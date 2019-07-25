@@ -3,8 +3,14 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended"
   ],
+  "settings": {
+    "react": {
+      "pragma": "h",
+      "version": "detect",
+    }
+  },
   "root": true,
-  "parser": "babel-eslint",// 需先安装 npm install babel-eslint -g
+  "parser": "babel-eslint",
   "env": {
     "amd": true,
     "es6": true,
@@ -27,14 +33,10 @@ module.exports = {
     "react/prop-types": "off",
   },
   "parserOptions": {
+    "ecmaVersion": 6,
     "sourceType": "module",// 支持export及import
     "ecmaFeatures": {
       "jsx": true
-    }
-  },
-  "settings": {
-    "react": {
-      "pragma": "h"
     }
   }
 };

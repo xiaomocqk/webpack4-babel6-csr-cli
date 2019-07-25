@@ -21,8 +21,11 @@ function build(project){
   let p = exec(commands[mode]);
   
   // 打印子进程的 console
-  p.stdout.on('data', (stats) => {
-    process.stdout.write(stats.toString({
+  p.stdout.on('data', receiveMessage);
+  p.stderr.on('data', receiveMessage);
+
+  function receiveMessage(data) {
+    process.stdout.write(data.toString({
       colors: true,
       modules: false,
       children: false,
@@ -31,33 +34,20 @@ function build(project){
     }) + '\n');
   
     spinner.stop();
-  });
-  
-  // 打印错误子进程的 console
-  p.stderr.on('data', (err) => {
-    process.stdout.write(err.toString({
-      colors: true,
-      modules: false,
-      children: false,
-      chunks: false,
-      chunkModules: false
-    }) + '\n');
-  
-    spinner.stop();
-  });
+  }
 }
 
 function catchError(project){
-  let targetPath = path.resolve(__dirname, '../src', project);
   let logWarn = msg => console.log(chalk.yellow(msg));
-
-  if (process.argv.length < 4) {
+  if (project == null) {
     logWarn(`未指定项目名称: \`npm run ${mode === 'production' ? 'build' : 'dev'} <project>\``);
     process.exit();
   }
 
+  let targetPath = path.resolve(__dirname, '../src', project);
+
   if (!fs.existsSync(targetPath)) {
-    logWarn(`${targetPath}不存在: 请检查项目名称是否正确`);
+    logWarn(`项目 ${project} 不存在, ${targetPath}`);
     process.exit();
   }
 }

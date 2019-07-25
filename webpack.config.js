@@ -177,14 +177,14 @@ if (isProd) {
 }
 
 function devServerAfter() {
-  console.log(chalk.bgGreen.bold('√ Build success! '));
+  console.log(chalk.bgGreen.bold('√ Build success!\n'));
+  console.log('webpack-dev-server:')
   console.log(chalk.green(`
   [Info] Mode       : ${process.env.NODE_ENV}
   [Info] Project    : ${projectPath}
-  [Info] Dist       : ${module.exports.output.path}
-  [Info] Served     : ${this.contentBase}
+[Info] Output     : ${module.exports.output.path}
+[Info] Server     : ${this.contentBase}
   [Info] PublicPath : ${this.publicPath}
-
   [Info] Visit      : http://localhost:${this.port + this.publicPath}
                     : http://${getIP()}:${this.port + this.publicPath}`
   ));

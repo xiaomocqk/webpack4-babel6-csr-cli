@@ -1,4 +1,4 @@
-// import '../styles/index.less';
+import '../styles/index.less';
 import { h, render } from 'preact-cycle';
 
 let state = {
@@ -13,7 +13,7 @@ const App = () => (
   </div>
 );
 
-let CHANGE = (state, value, event) => {
+let CHANGE = (state, value/* , event */) => {
   state.score = value;
 };
 
