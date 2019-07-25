@@ -1,5 +1,8 @@
 module.exports = {
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
   "root": true,
   "parser": "babel-eslint",// 需先安装 npm install babel-eslint -g
   "env": {
@@ -20,8 +23,18 @@ module.exports = {
     "radix": "warn", // 强制在parseInt()使用基数参数
     // "no-trailing-spaces": "warn", // 禁用行尾空格
     "no-mixed-spaces-and-tabs": "warn",
+
+    "react/prop-types": "off",
   },
   "parserOptions": {
     "sourceType": "module",// 支持export及import
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "pragma": "h"
+    }
   }
 };
