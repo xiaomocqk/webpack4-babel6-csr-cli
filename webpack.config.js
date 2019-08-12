@@ -169,24 +169,28 @@ if (isProd) {
     // compress: true, // 开发服务器是否启动gzip等压缩
     // before(app){},
     // proxy: {
-    //   '/circle-api/*': {
-    //     target: 'http://localhost:6600'
-    //   },
+    //   '/api': {
+    //     target: 'http://www.example.com',
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       '/api': ''
+    //     },
+    //   }
     // }
   };
 }
 
 function devServerAfter() {
   console.log(chalk.bgGreen.bold('√ Build success!\n'));
-  console.log('webpack-dev-server:')
+  console.log('webpack-dev-server:');
   console.log(chalk.green(`
-  [Info] Mode       : ${process.env.NODE_ENV}
-  [Info] Project    : ${projectPath}
+[Info] Mode       : ${process.env.NODE_ENV}
+[Info] Project    : ${projectPath}
 [Info] Output     : ${module.exports.output.path}
 [Info] Server     : ${this.contentBase}
-  [Info] PublicPath : ${this.publicPath}
-  [Info] Visit      : http://localhost:${this.port + this.publicPath}
-                    : http://${getIP()}:${this.port + this.publicPath}`
+[Info] PublicPath : ${this.publicPath}
+[Info] Visit      : http://localhost:${this.port + this.publicPath}
+                  : http://${getIP()}:${this.port + this.publicPath}`
   ));
 }
 

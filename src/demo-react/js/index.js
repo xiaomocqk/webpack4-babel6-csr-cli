@@ -1,5 +1,5 @@
 // import '../styles/index.less';
-import { Component, createElement as h } from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 class Page extends Component {

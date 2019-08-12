@@ -5,7 +5,7 @@ module.exports = {
   ],
   "settings": {
     "react": {
-      "pragma": "h",
+      // "pragma": "h",
       "version": "detect",
     }
   },
@@ -31,6 +31,8 @@ module.exports = {
     "no-mixed-spaces-and-tabs": "warn",
 
     "react/prop-types": "off",
+    // "react/no-unknown-property": ["warn", { ignore: ["class"] }],
+    // "react/react-in-jsx-scope": "warn",
   },
   "parserOptions": {
     "ecmaVersion": 6,

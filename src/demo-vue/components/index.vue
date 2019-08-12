@@ -1,7 +1,5 @@
 <template>
-  <h1>
-    {{ message }}
-  </h1>
+  <h1>{{ message }}</h1>
 </template>
 
 <script>
@@ -14,6 +12,6 @@
   }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 
 </style>

@@ -1,3 +1,88 @@
 @import './var.less';
 @import '../../../common/styles/reset.less';
 
+.list {
+  @left: 5.2rem;
+  @borderColor: #e8e8e8;
+
+  li {
+    position: relative;
+    padding: 1.25rem 1rem 1.25rem @left;
+    line-height: 2.4rem;
+    overflow: hidden;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: @left;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      transform: scaleY(.5);
+      background-color: @borderColor;
+    }
+
+    &:not(.other):active {
+      background-color: #f5f5f5;
+    }
+  }
+
+  .circle {
+    position: absolute;
+    box-sizing: border-box;
+    top: 50%;
+    left: 1.6rem;
+    width: 18px*2;
+    height: 18px*2;
+    border: 1px solid @borderColor;
+    border-radius: 50%;
+    transform: scale(.5) translateY(-50%);
+    transform-origin: 0 0;
+  }
+
+  .active .circle {
+    background: url('../images/tata_icon_vote_checked@2x.png') no-repeat 0 0 / cover;
+    border: none;
+  }
+
+  .other {
+    padding-left: 2.3rem;
+
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.forms {
+  padding: 0 1.5rem;
+}
+
+textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 16.8rem;
+  padding: 1.3rem 1.6rem;
+  background-color: #f8f8f8;
+  resize: none;
+  font-size: 1.5rem;
+  color: #888;
+}
+
+.btn-submit {
+  width: 100%;
+  height: 4.4rem;
+  margin-top: 1.6rem;
+  color: #fff;
+  background-color: #ff74b9;
+  border-radius: 6px;
+
+  &:disabled {
+    background-color: #ddd;
+  }
+
+  &:active {
+    background-color: #b35181;
+  }
+}
