@@ -1,0 +1,85 @@
+@import './var.less';
+@import '../../../common/styles/reset.less';
+
+html,body{
+  height: 100%;
+}
+
+body{
+  padding: 16px;
+  background-color: #eee;
+}
+
+.editor-container{
+  width: 70%;
+}
+.preview{
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 9;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 344px;
+  height: 705px;
+  padding-left: 21px;
+  padding-top: 83px;
+  padding-right: 18px;
+  padding-bottom: 81px;
+  background: url("../images/iphone-model.png") no-repeat 0 0 / contain;
+
+  article{
+    height: 100%;
+    overflow-y: auto;
+    background-color: #fff;
+    line-height: 1.4;
+  }
+}
+
+// 美化富文本
+.beauty-editor();
+
+.beauty-editor(){
+  @minHeight: 300px;
+  
+  .w-e-toolbar{
+    position: sticky;
+    top: 0;
+    z-index: 10001;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #fff;
+
+    .w-e-droplist{
+      border-right: none;
+      border-bottom: none;
+      border-left: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+    }
+  }
+  .w-e-text{
+    min-height: @minHeight;
+    overflow: hidden;
+    
+    &-container{
+      min-height: @minHeight;
+      margin-top: 4px;
+      height: auto !important;
+      background-color: #fff;
+
+      // 插入表格提示框
+      .w-e-panel-container{
+        border-right: none;
+        border-bottom: none;
+        border-color: #ddd;
+      }
+    }
+  }
+
+  .w-e-toolbar,
+  .w-e-droplist,
+  .w-e-text-container{
+    border-radius: 2px;
+    box-shadow: 1px 1px 2px #ddd;
+  }
+}
