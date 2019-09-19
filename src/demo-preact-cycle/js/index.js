@@ -69,7 +69,7 @@ class App extends Component {
   }
 }
 
-let cannotSubmit = (ids, content) => !(ids.length || content.length);
+let uncommittable = (ids, content) => !(ids.length || content.length);
 
 let CHECK = (state, item) => {
   item.isActive = !item.isActive;
@@ -77,14 +77,14 @@ let CHECK = (state, item) => {
   let activeList = state.list.filter(v => v.isActive);
 
   state.ids = activeList.map(v => v.id).join(',');
-  state.disabled = cannotSubmit(state.ids, state.content);
+  state.disabled = uncommittable(state.ids, state.content);
 
   return state;
 };
 
 let KEYUP = (state, event) => {
   state.content = event.target.value.replace(/^\s+/, '');
-  state.disabled = cannotSubmit(state.ids, state.content);
+  state.disabled = uncommittable(state.ids, state.content);
   return state;
 };
 

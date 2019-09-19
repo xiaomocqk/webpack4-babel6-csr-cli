@@ -9,9 +9,9 @@ function App() {
 
   useEffect(() => {
     document.title = count;
-
+    console.log('count', count);
     return () => {
-      console.log(count);
+      console.log('页面卸载', count);
     };
   }, [count]);
 
