@@ -11,12 +11,16 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
+    "braft-editor": "^2.3.8",
+    "braft-extensions": "0.0.19",
     "preact": "^8.4.2",
     "preact-cycle": "^0.5.1",
     "react": "^16.8.6",
+    "react-color": "^2.17.3",
     "react-dom": "^16.8.6",
     "vue": "^2.5.16",
-    "wangeditor": "^3.1.1"
+    "wangeditor": "^3.1.1",
+    "xss": "^1.0.6"
   },
   "devDependencies": {
     "autoprefixer": "^9.0.0",

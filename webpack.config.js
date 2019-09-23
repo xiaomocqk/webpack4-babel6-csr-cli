@@ -56,8 +56,8 @@ module.exports = {
         }
       },
       {
-        test: /.less$/,
-        exclude: /node_modules/,
+        test: /.(c|le)ss$/,
+        // exclude: /node_modules/,
         use: [
           isProd ? MiniCssExtractPlugin.loader : 'style-loader',
           'css-loader',
