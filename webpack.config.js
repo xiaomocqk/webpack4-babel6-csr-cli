@@ -9,16 +9,25 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-const cdn = '';
 const isProd = process.env.NODE_ENV === 'production';
 const project = process.env.project;
 const projectPath = resolve('src', project);
 const outputPath = resolve('dist', project);
-const publicPath = `${cdn}/${project}/`;
-const { entry, htmlPlugins } = resolveFiles();
+const publicPath = isProd ? `/your_public/` : `/${project}/`;// 必须是绝对路径. 不可以是 "./" 或者 "../" 开头, 否则css内的 background-image会指向错误
+const favicon = resolve(projectPath, 'images/favicon.jpg');
+const { entry, htmlPlugins } = resolveEntries();
 
 function resolve(...dir) {
   return path.resolve(__dirname, ...dir);
+}
+
+validateUserSettings();
+function validateUserSettings(){
+  if (/$\./.test(publicPath)) {
+    console.error('publicPath 必须为一个绝对路径. 不可以是 "./" 或者 "../" 开头, 否则css内的 background-image会指向错误');
+    process.exit(0);
+  }
+  console.log('如果需要提取reset.less等通用样式, 需要在入口文件显示import, 或者参考: ' + 'https://github.com/webpack-contrib/less-loader/issues/7');
 }
 
 module.exports = {
@@ -56,8 +65,8 @@ module.exports = {
         }
       },
       {
-        test: /.less$/,
-        exclude: /node_modules/,
+        test: /.(c|le)ss$/,
+        // exclude: /node_modules/,
         use: [
           isProd ? MiniCssExtractPlugin.loader : 'style-loader',
           'css-loader',
@@ -66,12 +75,14 @@ module.exports = {
         ]
       },
       {
-        test: /.(jpg|png|gif)$/,
+        test: /.(jpg|png|gif|svg|eot|otf|ttf|woff|woff2)$/,
         use: {
           loader: 'url-loader',
           options: {
             limit: 8192,
-            name: isProd ? 'images/[hash:8].[ext]' : 'images/[name].[hash:8].[ext]'
+            // 生成位置: `${outputPath}/static/[hash:8].[ext]`
+            // 最终引用
+            name: isProd ? 'static/[hash:8].[ext]' : 'static/[name].[hash:8].[ext]'
           }
         }
       }
@@ -86,29 +97,32 @@ module.exports = {
     splitChunks: {
       cacheGroups: {
         // 多文件拆包, 单文件不拆包(含js|css)
-        ...(htmlPlugins.length > 1
-          ? {
+        // ...(htmlPlugins.length > 1
+        //   ? {
             vendor: {
               name: 'vendor', // 与 output.filename 一致, 即为 'vendor.[chunckhash:8].js'
               chunks: 'initial',// 如果代码中有异步组件时, 若设置为 'all' 会因找不到模块而报错
               test: /node_modules/,
               enforce: true
             },
-            // 提取公用的css, 前提文件名必须是 (reset|common).(le|c|sc|sa)ss
-            common: {
-              name: 'vendor',
-              chunks: 'all',
-              test: /[/\\](reset|common)\.(le|c|sc|sa)ss$/,
-              enforce: true
-            },
-          }
-          : {}
-        ),
+          // }
+        //   : {}
+        // ),
+        
+        // 提取公用的css, 前提文件名必须是 (reset|common).(le|c|sc|sa)ss, 并且在入口文件中显示 import
+        // 或者也许试用如下的方案
+        // https://github.com/webpack-contrib/less-loader/issues/7
+        common: {
+          name: 'vendor',
+          chunks: 'all',
+          test: /[/\\](reset|common)\.(le|c|sc|sa)ss$/,
+          enforce: true
+        },
       }
     },
   },
   resolve: {
-    extensions: ['.js', '.vue', '.less', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.vue', '.less', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.js',
       '@': projectPath,
@@ -142,8 +156,8 @@ if (isProd) {
   module.exports.plugins.push(
     new CleanWebpackPlugin([outputPath]),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[contenthash:8].css',
-      chunkFilename: 'css/[id].[contenthash:8].css'
+      filename: 'static/[name].[contenthash:8].css',
+      chunkFilename: 'static/[id].[contenthash:8].css'
     })
   );
 } else {
@@ -166,6 +180,11 @@ if (isProd) {
     after: devServerAfter,
     // useLocalIp: true, open: true, // 当 open: true 时, 将使用本地 ip 自动打开地址
     // historyApiFallback: true, // 如果访问的路由页面或接口为404时, 总返回index.html(单页面应用)
+    // historyApiFallback: {
+    //   rewrites: [
+    //     { from: /./, to: path.resolve(__dirname, './dist/mobile/index.html')}
+    //   ]
+    // },
     // compress: true, // 开发服务器是否启动gzip等压缩
     // before(app){},
     // proxy: {
@@ -195,7 +214,7 @@ function devServerAfter() {
 }
 
 // 获取人口文件和对应的html
-function resolveFiles() {
+function resolveEntries() {
   const jsDir = resolve(projectPath, 'js');
   const htmlDir = resolve(projectPath, 'views');
   const entry = {};
@@ -215,6 +234,7 @@ function resolveFiles() {
       new HtmlWebpackPlugin({
         template: resolve(htmlDir, htmlname),
         filename: htmlname,
+        favicon: favicon,
         chunks: ['vendor', filename],
       })
     );
