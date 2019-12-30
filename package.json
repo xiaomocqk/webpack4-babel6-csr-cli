@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "create": "node cli/create",
-    "dev": "node cli/index.js development",
-    "build": "node cli/index.js production"
+    "create": "node scripts/create",
+    "dev": "node scripts/index.js development",
+    "build": "node scripts/index.js production"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "axios": "^0.18.0",
     "braft-editor": "^2.3.8",
     "braft-extensions": "0.0.19",
+    "meetyou.jssdk": "^1.2.3",
     "preact": "^8.4.2",
     "preact-cycle": "^0.5.1",
     "react": "^16.8.6",
@@ -36,6 +37,7 @@
     "clean-webpack-plugin": "^0.1.19",
     "cross-env": "^5.1.6",
     "css-loader": "^1.0.0",
+    "eruda": "^1.10.3",
     "eslint": "^5.2.0",
     "eslint-loader": "^2.1.0",
     "eslint-plugin-react": "^7.14.3",

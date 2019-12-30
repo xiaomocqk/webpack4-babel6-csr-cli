@@ -1,51 +1,114 @@
-.editor-container{
-  width: 70%;
-  text-align: center;
-}
-// 编辑区
-.bf{
-  &-container {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 2px 2px 6px #ddd;
-  }
-  &-controlbar {
-    position: sticky;
-    z-index: 9;
-    top: 0;
-    background-color: #fff;
-  }
-  &-content {
-    height: initial;
-    min-height: 500px;
-  }
-}
-.btn-submit{
-  margin: 20px 0;
-  padding: 10px 30px;
-  line-height: 1.5;
+.set-title {
+  height: 30px;
+  width: 350px;
   border-radius: 4px;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  font-size: 14px;
-  font-weight: bold;
-  outline: none;
-  text-align: center;
-  vertical-align: top;
-  user-select: none;
-  cursor: pointer;
+  border: 1px solid #ddd;
+  box-shadow: 2px 2px 6px #ddd;
+  padding-left: .5em;
+  margin: 20px 0;
+}
 
-  &:active{
-    background-color: #0062cc;
+.main-container {
+  position: relative;
+  width: 70%;
+
+  .bar {
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+    background-image: linear-gradient(#f1f1f1, #e1e1e1);
+    border-bottom: 1px solid #aaa;
+    border-radius: 5px 5px 0 0;
   }
-  &:focus{
-    box-shadow: 0 0 0 0.2rem rgba(38,143,255,.5);
+
+  .icon {
+    float: left;
+    width: 12px;
+    height: 12px;
+    margin: 9px 4px 0;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 50%;
+
+    &-red {
+      margin-left: 14px;
+      background-color: #eb6a5d;
+    }
+
+    &-yellow {
+      background-color: #f5c250;
+    }
+
+    &-green {
+      background-color: #0bd417;
+    }
+  }
+
+  .title {
+    position: absolute;
+    left: 50%;
+    width: 300px;
+    margin: 0 auto;
+    overflow: hidden;
+    color: #777;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 30px;
+    text-align: center;
+    transform: translateX(-50%);
+  }
+
+  // 编辑区
+  .bf {
+    &-container {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: 2px 2px 6px #ddd;
+    }
+
+    &-controlbar {
+      position: sticky;
+      z-index: 9;
+      top: 0;
+      background-color: #fff;
+    }
+
+    &-content {
+      height: initial;
+      min-height: 500px;
+    }
+  }
+
+  .btn-submit {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 20px 0;
+    padding: 10px 30px;
+    line-height: 1.5;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    outline: none;
+    text-align: center;
+    vertical-align: top;
+    user-select: none;
+    cursor: pointer;
+
+    &:active {
+      background-color: #0062cc;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, .5);
+    }
   }
 }
 
 // 手机预览区
-.previewer{
+.previewer {
   box-sizing: border-box;
   position: fixed;
   z-index: 10;
@@ -54,7 +117,6 @@
   right: 4px;
   width: 375px;
   height: 667px;
-  padding: 20px 15px 50px 15px;
   box-shadow: 2px 2px 6px #ddd;
   // border-radius: 4px;
   border: 1px solid #ddd;
@@ -65,24 +127,39 @@
   word-break: break-all;
   white-space: pre-wrap;
 
-  h1, p{
+  &-title{
+    line-height: 44px;
+    box-shadow: 0 1px 0 #ddd;
+    text-align: center;
+  }
+
+  &-content{
+    padding: 20px 15px 50px 15px;
+  }
+
+  h1,
+  p {
     margin: 0
   }
 
-  u{
+  u {
     color: inherit;
   }
 
-  p:empty{
+  p:empty {
     height: 10em/16;
   }
 
-  p:not(:empty){
+  p:not(:empty) {
     margin: 10px 0;
   }
 
+  h1{
+    line-height: 1;
+  }
+
   h1+p+p,
-  h1+p+p+p{
+  h1+p+p+p {
     margin: 0 !important;
   }
 
@@ -92,10 +169,11 @@
   }
 
 
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     width: 4px;
   }
-  &::-webkit-scrollbar-thumb{
+
+  &::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 4px;
   }
