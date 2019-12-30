@@ -234,7 +234,7 @@ function resolveEntries() {
       new HtmlWebpackPlugin({
         template: resolve(htmlDir, htmlname),
         filename: htmlname,
-        favicon: favicon,
+        // favicon: favicon,
         chunks: ['vendor', filename],
       })
     );
